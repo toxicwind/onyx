@@ -1,0 +1,39 @@
+{
+  "name": "@geode/onyx",
+  "version": "1.0.0",
+  "description": "Full-session (cookies + per-origin localStorage) grab/restore between Firefox, keeper Chromium, and real Chrome — plus the cache-friendly multi-route CF/Turnstile login coordinator (single-flight per profile/port, soft/hard TTL session cache). Merged from cookie-vault + cf-borrow.",
+  "license": "MIT",
+  "engines": {
+    "bun": ">=1.4.4",
+    "node": ">=20"
+  },
+  "type": "commonjs",
+  "main": "src/index.js",
+  "bin": {
+    "onyx-vault": "./bin/cookie-vault.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "AGENTS.md"
+  ],
+  "scripts": {
+    "test": "bun test tests/",
+    "check": "bun --check src/cli.js",
+    "validate": "bun run typecheck && bun run test",
+    "typecheck": ":"
+  },
+  "keywords": [
+    "cookie",
+    "session",
+    "localStorage",
+    "keeper",
+    "chromium",
+    "firefox",
+    "cdp",
+    "turnstile",
+    "cloudflare",
+    "login"
+  ]
+}
