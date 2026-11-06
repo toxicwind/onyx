@@ -8,7 +8,7 @@
 
 ---
 
-## **onyx** is the browser-session vault for the estate that borrows, keeps, and restores full sessions (cookies + per-origin localStorage) across Firefox, the keeper Chromium, and real Chrome — and gets through challenge-gated services (Cloudflare Turnstile) with a cache-friendly, single-flight multi-route coordinator.
+## **onyx** is a browser-session vault that borrows, keeps, and restores full sessions (cookies + per-origin localStorage) across Firefox, the keeper Chromium, and real Chrome — and gets through challenge-gated services (Cloudflare Turnstile) with a cache-friendly, single-flight multi-route coordinator.
 
 <p align="center">
   <a href="docs/">Explore the docs »</a> ·
@@ -27,7 +27,7 @@ console.log("github cookies:", gh.length);
 
 ## Features
 
-- **cross-platform Firefox grab** — auto-resolves the live profile (estate default on Linux, `%APPDATA%\Mozilla\Firefox\Profiles` on Windows; override `ONYX_FIREFOX_PROFILE`); snapshot-copies the SQLite DBs so WAL locks never block
+- **cross-platform Firefox grab** — auto-resolves the live profile (Linux default under `~/.mozilla/firefox`, Windows `%APPDATA%\Mozilla\Firefox\Profiles`; override `ONYX_FIREFOX_PROFILE`); snapshot-copies the SQLite DBs so WAL locks never block
 - **session vault** — grab/restore cookies + per-origin localStorage between Firefox, keeper Chromium (`BROWSER_KEEPER_CDP=127.0.0.1:25154`), and real Chrome
 - **CF/Turnstile coordinator** (`src/cf-coord.ts`) — multi-route Cloudflare login that passes Turnstile using a real-fingerprint browser
 - **cache-friendly calling** (tau doctrine) — browser profiles cached so repeated calls reuse warm sessions

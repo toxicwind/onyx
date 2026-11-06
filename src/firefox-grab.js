@@ -15,8 +15,8 @@ const { homedir } = require("node:os");
 const { decompressSnappy, decompressLz4 } = require("./snappy");
 
 // Cross-platform default Firefox profile resolution. On Linux/macOS use the
-// estate default; on Windows scan %APPDATA%\Mozilla\Firefox\Profiles for the
-// first profile (prefer default-release) that actually has a cookies.sqlite.
+// account default under ~/.mozilla/firefox; on Windows scan %APPDATA%\Mozilla\
+// Firefox\Profiles for the first profile (prefer default-release) with cookies.
 function defaultProfile() {
   if (process.platform === "win32") {
     const base = process.env.APPDATA
