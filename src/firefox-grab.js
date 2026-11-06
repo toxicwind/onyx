@@ -11,9 +11,30 @@ const {
   unlinkSync,
 } = require("node:fs");
 const { join } = require("node:path");
+const { homedir } = require("node:os");
 const { decompressSnappy, decompressLz4 } = require("./snappy");
 
-const DEFAULT_PROFILE = "/home/toxic/.mozilla/firefox/7c8v85fg.default-nightly";
+// Cross-platform default Firefox profile resolution. On Linux/macOS use the
+// estate default; on Windows scan %APPDATA%\Mozilla\Firefox\Profiles for the
+// first profile (prefer default-release) that actually has a cookies.sqlite.
+function defaultProfile() {
+  if (process.platform === "win32") {
+    const base = process.env.APPDATA
+      ? join(process.env.APPDATA, "Mozilla", "Firefox", "Profiles")
+      : join(homedir(), "AppData", "Roaming", "Mozilla", "Firefox", "Profiles");
+    if (existsSync(base)) {
+      const dirs = readdirSync(base, { withFileTypes: true })
+        .filter((d) => d.isDirectory())
+        .map((d) => d.name);
+      // prefer a default/release profile with cookies, then any profile with cookies
+      const withCookies = dirs.filter((d) => existsSync(join(base, d, "cookies.sqlite")));
+      const pick = withCookies.find((d) => /default|release/i.test(d)) || withCookies[0];
+      if (pick) return join(base, pick);
+    }
+  }
+  return "/home/toxic/.mozilla/firefox/7c8v85fg.default-nightly";
+}
+const DEFAULT_PROFILE = process.env.ONYX_FIREFOX_PROFILE || defaultProfile();
 
 function sqliteOpen(path, readonly) {
   // Prefer bun:sqlite (bundled with the runtime), fall back to node:sqlite.

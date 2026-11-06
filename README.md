@@ -20,6 +20,9 @@ Merged 2026-11-03 from three predecessors (retired):
    profile, the keeper Chromium (`BROWSER_KEEPER_CDP=127.0.0.1:25154`,
    ports.env SSOT), and real Google Chrome:
    - `src/firefox-grab.js` — pull cookies + localStorage from Firefox
+     (cross-platform: auto-resolves the live Firefox profile — estate default on
+     Linux, `%APPDATA%\Mozilla\Firefox\Profiles` on Windows; override with
+     `ONYX_FIREFOX_PROFILE`) 
    - `src/keeper-cdp.js` — apply/read session state on the keeper via CDP
    - `src/vault.js` + `src/snappy.js` — serialization + compression
    - `bin/cookie-vault.js` — CLI (grab / restore / auto-sync)
